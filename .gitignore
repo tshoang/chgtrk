@@ -1,0 +1,12 @@
+*.aux
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.log
+*.nlo
+*.nls
+*.rel
+*.synctex.gz
+*.toc

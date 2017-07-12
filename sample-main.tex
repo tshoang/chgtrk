@@ -1,0 +1,33 @@
+\usepackage{verbatim}
+\title{A Sample Document for the usages of \textsf{chgtrk} package}
+\author{Thai Son Hoang\\ECS, University of Southampton\\\texttt{<T dot S dot Hoang at ecs dot soton dot ac dot uk>}}
+
+\begin{document}
+\maketitle
+
+We first create some contributors.
+% Create some abbreviation macros
+\begin{verbatim}
+\newCTcontributor[TSH]{Thai Son Hoang}
+\newCTcontributor[Bob]{Bob Smith}
+\end{verbatim}
+\newCTcontributor[TSH]{Thai Son Hoang}
+\newCTcontributor[Bob]{Bob Smith}
+
+\TSHAdded{Here is some new added text.}
+
+However this is \BobChanged{from this text}{to this text}.
+
+If you just want to \TSHDeleted{delete this text}.
+
+Comment can be inline
+\TSHInlineCommented{Here is my inline comment.}
+
+But we can have \BobCommented{this comment} in the margin
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "sample-chgtrk"
+%%% End: 
