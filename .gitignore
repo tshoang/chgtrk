@@ -8,6 +8,7 @@
 *.log
 *.nlo
 *.nls
+*.out
 *.rel
 *.synctex.gz
 *.toc

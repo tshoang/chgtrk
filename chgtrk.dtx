@@ -2,19 +2,19 @@
 % 
 % chgtrk.ins
 % 
-% Copyright (C) 2017 by Thai Son Hoang
+% Copyright (C) 2017--2018 by Thai Son Hoang
 % <T dot S dot Hoang at ecs dot soton dot ac dot uk>
 % --------------------------------------------------------------------
 % 
 % This file may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License, either version 1.3
+% conditions of the LaTeX Project Public License, either version 1.3c
 % of this license or (at your option) any later version.
 % The latest version of this license is in:
 % 
 %      http://www.latex-project.org/lppl.txt
 % 
-% and version 1.3 or later is part of all distributions of LaTeX 
-% version 2005/12/01 or later.
+% and version 1.3c or later is part of all distributions of LaTeX 
+% version 2008/05/04 or later.
 % 
 % This work has the LPPL maintenance status "author-maintained".
 % 
@@ -29,11 +29,12 @@
 % \iffalse
 %<lstEventB>\NeedsTeXFormat{LaTeX2e}\relax
 %<lstEventB>\ProvidesPackage{chgtrk}
-%<lstEventB>    [2017/07/12 v0.1 Package for changes tracking] 
+%<lstEventB>    [2018/06/26 v0.1 Package for changes tracking] 
 % 
 %<*driver> 
 \documentclass[a4paper]{ltxdoc}
 \usepackage{chgtrk}
+\usepackage{hyperref}
 \EnableCrossrefs
 % ^^A\CodelineIndex
 \PageIndex
@@ -64,7 +65,7 @@
 % Right brace   \}     Tilde         \~}
 % 
 % 
-% \changes{v0.0}{2016/06/06}{Initial version}
+% \changes{v0.1}{2018/06/26}{Initial version}
 % 
 % \GetFileInfo{chgtrk.sty}
 % 
@@ -93,14 +94,14 @@
 % corresponds to \textsf{chgtrk}~\fileversion, dated~\filedate.}}
 % \author{Thai Son Hoang \\ ECS, University of Southampton \\ \texttt{<T dot S dot Hoang at ecs dot
 % soton dot ac dot uk>}}
-% \date{June 6, 2017}
+% \date{June 26, 2018}
 % 
 % \maketitle
 % 
 % ^^A %%%%% Abstract %%%%%
 % \begin{abstract}
-%   This package provides macros for typesetting Event-B code.  It
-%   was developed at the University of Southampton.
+%   This package was developed in order to ease the typesetting of
+%   changes in \LaTeX{}.  It was developed at the University of Southampton.
 % \end{abstract}
 % 
 % ^^A %%%%% Table of contents %%%%%
@@ -109,32 +110,186 @@
 % ^^A %%%%% Introduction %%%%%
 % \section{Introduction}
 % 
-% This package was developed in order to ease the listing of
-% Event-B code in \LaTeX{}.
+% This package was developed in order to ease the typesetting of
+% changes in \LaTeX{}.
 % 
 % ^^A %%%%% Usage %%%%%%
 % \section{Usage}
 % 
 % Just like any other package, you need to request this package with a
-% |\usepackage| command in the preamble.
-%
-% So in the simpler case, one just types
+% |\usepackage| command in the preamble. So in the simpler case, one
+% just types
 % 
 % \indent |\usepackage{chgtrk}|
 %
-% \noindent to load the package  
+% \noindent to load the package.
+%
+% \subsection{Contributor Declaration}
+% \label{sec:contr-decl}
+% After package loading, contributors can be declared using the
+% meta-command |\newCTcontributor{<Contributor>}|, which subsequently
+% creates several ``personalised'' commands for the contributor.  For
+% example, the following command
 % 
+% \indent |\newCTcontributor{Alice}| \newCTcontributor{Alice}
+%
+% \noindent creates the commands |\AliceAdd|, |\AliceChange|,
+% |\AliceDelete|, |\AliceComment|, etc., for adding, changing,
+% deleting texts, and comment accordingly. (More contributor's
+% commands are described in Section~\ref{sec:contributor-commands}.)
+% The name |Alice| will be used to identify the contributor of various
+% annotations.
+% 
+% If a full name (e.g., with white space) is desirable for
+% contributor's identification, the following form of
+% |\newCTcontributor| should be used.
+%
+% \indent |\newCTcontributor{<Contributor>}{<Full Name>}|
+%
+% \noindent where |Full Name| is the full name used for contributor's
+% identification and |Contributor| is the prefix of the contributor's
+% commands.  As an example, the following command
+% 
+% \indent |\newCTcontributor[Bob]{Bob Smith}| 
+% \newCTcontributor[Bob]{Bob Smith}
+% 
+% \noindent creates the commands |\BobAdd|, |\BobChange|,
+% |\BobDelete|, |\BobComment|, etc., while using ``|Bob Smith|'' as
+% the contributor's identification.
+%
+% \subsection{Contributor Commands}
+% \label{sec:contributor-commands}
+%
+% \paragraph{Adding Texts.}  A contributor can annotate the newly
+% added text with her own |\<Contributor>Add| command.  For example,
+% the following shows the text that |Alice| adds using |\AliceAdd|
+% command, i.e.,
+%
+% \indent |\AliceAdd{This is the text that Alice adds.}|
+%
+% \noindent produces
+%
+% \indent \AliceAdd{This is the text that Alice adds.}
+%
+% \noindent Similarly, the following
+%
+% \indent |\BobAdd{And this is the text that Bob adds.}|
+%
+% \noindent produces
+%
+% \indent \BobAdd{And this is the text that Bob adds.}
+%
+% \noindent Notice how ``|Bob Smith|'' is used as the contributor's
+% identification.
+%
+% \paragraph{Changing Texts.}  A contributor can annotate the changed
+% text with her own |\<Contributor>Change| command.  For example,
+% the following shows the text that |Alice| changes using |\AliceChange|
+% command, i.e.,
+%
+% \indent |\AliceChange{This is the old text}{This is the text that Alice changes.}|
+%
+% \noindent produces
+%
+% \indent \AliceChange{This is the old text}{This is the text that
+% Alice changes.}
+%
+% \noindent Similarly, the following
+%
+% \indent |\BobChange{This is the old text}{And this is the text that Bob changes.}|
+%
+% \noindent produces
+%
+% \indent \BobChange{This is the old text}{And this is the text that Bob changes.}
+%
+% \noindent Notice how ``|Bob Smith|'' is used as the contributor's
+% identification.
+%
+% \paragraph{Deleting Texts.}  A contributor can annotate the deleted
+% text with her own |\<Contributor>Delete| command.  For example, the
+% following shows the text that |Alice| deletes using |\AliceDelete|
+% command, i.e.,
+%
+% \indent |\AliceDelete{This is the text that Alice deletes.}|
+%
+% \noindent produces
+%
+% \indent \AliceDelete{This is the text that Alice deletes.}
+%
+% \noindent Similarly, the following
+%
+% \indent |\BobDelete{And this is the text that Bob deletes.}|
+%
+% \noindent produces
+%
+% \indent \BobDelete{And this is the text that Bob deletes.}
+%
+% \noindent Notice how ``|Bob Smith|'' is used as the contributor's
+% identification.
+%
+% \paragraph{Comment.}  A contributor can comment with her own
+% |\<Contributor>Comment| command.  For example, the following shows
+% |Alice|'s comments using |\AliceComment| command, i.e.,
+%
+% \indent |\AliceComment{This is Alice's comment.}|
+%
+% \noindent produces \AliceComment{This is Alice's comment.} the
+% comment on the margin with a link to the place with the command is
+% issued (here after the word ``produces'').  Similarly, the following
+%
+% \indent |\BobComment{And this is Bob's comment.}|
+%
+% \noindent produces \BobComment{And this is Bob's comment.} the
+% comment on the margin. Notice how ``|Bob Smith|'' is used as the
+% contributor's identification.
+%
+% \paragraph{In-line Comment.}  A contributor can comment in-line with
+% her own |\<Contributor>InlineComment| command.  For example, the following
+% shows |Alice|'s in-line comments using |\AliceInlineComment| command, i.e.,
+%
+% \indent |\AliceInlineComment{This is Alice's in-line comment.}|
+%
+% \noindent produces \AliceInlineComment{This is Alice's in-line
+% comment.}
+%
+% \noindent Similarly, the following
+%
+% \indent |\BobInlineComment{And this is Bob's in-line comment.}|
+%
+% \noindent produces \BobInlineComment{And this is Bob's in-line
+% comment.}
+%
+% \noindent Notice how ``|Bob Smith|'' is used as the contributor's
+% identification.
+%
+% \paragraph{Comment Addressing Other Contributors.}  A contributor
+% can comment addressing other contributors with her own
+% |\<Contributor>CommentTo| command.  For example, the following shows
+% |Alice|'s comments to |Bob| using |\AliceCommentTo| command, i.e.,
+%
+% \indent |\AliceCommentTo{Bob}{This is Alice's comment to Bob.}|
+%
+% \noindent produces \AliceCommentTo{Bob}{This is Alice's comment to
+% Bob.} the comment on the margin with a link to the place with the
+% command is issued (here after the word ``produces'').  Similarly,
+% the following
+%
+% \indent |\BobComment{And this is Bob's comment.}|
+%
+% \noindent produces \BobComment{And this is Bob's comment.} the
+% comment on the margin. Notice how ``|Bob Smith|'' is used as the
+% contributor's identification.
+%
 % \StopEventually{
 % \PrintChanges
 % \PrintIndex
 % }
-%   
+% 
 % ^^A %%%%% Implementation %%%%%
 % \section{Implementation}
 %
 % ^^A %%% Package loading %%% 
-% The implementation is quite straightforward.  Our implementation is
-% based on the |listings| package.
+% Our implementation is based on the |todonotes| () and |soul| packages.
 % 
 % \iffalse ^^A BEGIN Produce comments only in the resulting style file
 %<chgtrk>
@@ -182,29 +337,39 @@
 %   A wrapper for \ifstrequal to make sure that the first argument is properly expanded
 \newcommand{\chgtrk@ifstrequal}{\expandafter\ifstrequal\expandafter}
 
-% Create a new B macro
+% Create a new contributor, i.e., the set of macros for the
+% contributor to add, delete, change, comment, and comment inline.
 % Arguments:
-% 1. The macro string, (OPTIONAL) if empty then the expanded string will be used.
-% 2. The expanded string
-% 3. The mark-up macros, e.g. \Bvrb
+% 1. The macro prefix string, (OPTIONAL) if empty then the contributor name will be used.
+% 2. The contributor name
 % Usage:
-% - \B@newmacro[aaa]{a\_a\_a}{\Bvrb} will create a new macro \aaa
-% which will be expanded to be \Bvrb{a\_a\_a}
-% - \B@newmacro{aaa}{\Bvrb} will create a new macro \aaa
-% which will be expanded to be \Bvrb{aaa}
+% - \CT@contributor{Susan} will create a new set of macros
+% \SusanAdd, \SusanDelete, \SusanChange, \SusanComment,
+% \SusanInlineComment, which will be expanded to \CT@add[Susan],
+% \CT@delete[Susan], \CT@change[Susan], \CT@comment[Susan],
+% \CT@inlinecommmented[Susan]
+% - \CT@contributor[sls]{Susan Louise Smith} will create a new set of macros
+% \slsAdd, \slsDelete, \slsChange, \slsComment,
+% \slsInlineComment, which will be expanded to \CT@add[Susan Louise Smith],
+% \CT@delete[Susan Louise Smith], \CT@change[Susan Louise Smith], \CT@comment[Susan Louise Smith],
+% \CT@inlinecommmented[Susan Louise Smith]
 \newcommand{\CT@contributor}[2][]{%
   \chgtrk@ifstrequal{#1}{}{%
-    \expandafter\def\csname #2Added\endcsname{\CT@added[#2]}%
-    \expandafter\def\csname #2Deleted\endcsname{\CT@deleted[#2]}%
-    \expandafter\def\csname #2Changed\endcsname{\CT@changed[#2]}%
-    \expandafter\def\csname #2Commented\endcsname{\CT@commented[#2]}%
-    \expandafter\def\csname #2InlineCommented\endcsname{\CT@inlinecommented[#2]}%
+    \expandafter\def\csname #2Add\endcsname{\CT@add[#2]}%
+    \expandafter\def\csname #2Delete\endcsname{\CT@delete[#2]}%
+    \expandafter\def\csname #2Change\endcsname{\CT@change[#2]}%
+    \expandafter\def\csname #2Comment\endcsname{\CT@comment[#2]}%
+    \expandafter\def\csname #2CommentTo\endcsname{\CT@commentto[#2]}%
+    \expandafter\def\csname #2InlineComment\endcsname{\CT@inlinecomment[#2]}%
+    \expandafter\def\csname #2InlineCommentTo\endcsname{\CT@inlinecommentto[#2]}%
   }{%
-    \expandafter\def\csname #1Added\endcsname{\CT@added[#2]}%
-    \expandafter\def\csname #1Deleted\endcsname{\CT@deleted[#2]}%
-    \expandafter\def\csname #1Changed\endcsname{\CT@changed[#2]}%
-    \expandafter\def\csname #1Commented\endcsname{\CT@commented[#2]}%
-    \expandafter\def\csname #1InlineCommented\endcsname{\CT@inlinecommented[#2]}%
+    \expandafter\def\csname #1Add\endcsname{\CT@add[#2]}%
+    \expandafter\def\csname #1Delete\endcsname{\CT@delete[#2]}%
+    \expandafter\def\csname #1Change\endcsname{\CT@change[#2]}%
+    \expandafter\def\csname #1Comment\endcsname{\CT@comment[#2]}%
+    \expandafter\def\csname #1CommentTo\endcsname{\CT@commentto[#2]}%
+    \expandafter\def\csname #1InlineComment\endcsname{\CT@inlinecomment[#2]}%
+    \expandafter\def\csname #1InlineCommentTo\endcsname{\CT@inlinecommentto[#2]}%
   }%
 }%
 
@@ -215,90 +380,120 @@
 
 % Arguments:
 % 1. (Optional) Contributor
-% 2. Added text
-\newcommand{\CT@added}[2][]{%
+% 2. Add text
+\newcommand{\CT@add}[2][]{%
   \chgtrk@ifstrequal{#1}{}{%
     % Do nothing
   }{%
-    \todo[linecolor=orange,backgroundcolor=orange!25,bordercolor=orange]{#1 added}%{}
+    \todo[linecolor=orange,backgroundcolor=orange!25,bordercolor=orange]{\textbf{#1} added}%{}
   }%
   \texthl{#2}%
 }%
 
-\newcommand{\CTadded}[1]{%
-  \CT@added{#1}%
+\newcommand{\CTadd}[1]{%
+  \CT@add{#1}%
 }%
 
 % Arguments:
 % 1. (Optional) Contributor
-% 2. Added text
-\newcommand{\CT@deleted}[2][]{%
+% 2. Add text
+\newcommand{\CT@delete}[2][]{%
   \chgtrk@ifstrequal{#1}{}{%
     % Do nothing
   }{%
-    \todo[linecolor=red,backgroundcolor=red!25,bordercolor=red]{#1 deleted}%{}
+    \todo[linecolor=red,backgroundcolor=red!25,bordercolor=red]{\textbf{#1} delete}%{}
   }%
   \setstcolor{red}%
   \st{#2}%
 }%
 
-\newcommand{\CTdeleted}[1]{%
-  \CT@deleted{#1}%
+\newcommand{\CTdelete}[1]{%
+  \CT@delete{#1}%
 }%
 
-\newcommand{\CT@changed}[3][]{%
+\newcommand{\CT@change}[3][]{%
   \setstcolor{red}%
   \st{#2}%
   \chgtrk@ifstrequal{#1}{}{%
     % Do nothing
   }{%
-    \todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue]{#1 changed}%{}
+    \todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue]{\textbf{#1} changed}%{}
   }%
   \texthl{#3}%
   %\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue]{\textbf{Before}:
   %}%
 }%
 
-\newcommand{\CTchanged}[2]{%
-  \CT@changed{#1}{#2}%
+\newcommand{\CTchange}[2]{%
+  \CT@change{#1}{#2}%
 }%
 
-\newcommand{\CT@commented}[2][]{%
+\newcommand{\CT@comment}[2][]{%
   \chgtrk@ifstrequal{#1}{}{%
     \todo[linecolor=green,backgroundcolor=green!25,bordercolor=green]{#2}%{}
   }{%
-    \todo[linecolor=green,backgroundcolor=green!25,bordercolor=green]{#1: #2}%{}
+    \todo[linecolor=green,backgroundcolor=green!25,bordercolor=green]{\textbf{#1}: #2}%{}
   }%
 }%
 
-\newcommand{\CTcommented}[1]{%
-  \CT@commented{#1}%
+\newcommand{\CT@commentto}[3][]{%
+  \chgtrk@ifstrequal{#1}{}{%
+    \todo[linecolor=green,backgroundcolor=green!25,bordercolor=green]{$\rightarrow$\textbf{#2}
+      #3}%
+  }{%
+    \todo[linecolor=green,backgroundcolor=green!25,bordercolor=green]{\textbf{#1}:
+      $\rightarrow$\textbf{#2} #3}%
+  }%
 }%
 
-\newcommand{\CT@inlinecommented}[2][]{%
+\newcommand{\CTcomment}[1]{%
+  \CT@comment{#1}%
+}%
+
+\newcommand{\CTcommentto}[2]{%
+  \CT@commentto{#1}{#2}%
+}%
+
+\newcommand{\CT@inlinecomment}[2][]{%
   \chgtrk@ifstrequal{#1}{}{%
     \todo[inline, linecolor=green,backgroundcolor=green!25,bordercolor=green]{#2}%{}
   }{%
-    \todo[inline, linecolor=green,backgroundcolor=green!25,bordercolor=green]{#1: #2}%{}
+    \todo[inline, linecolor=green,backgroundcolor=green!25,bordercolor=green]{\textbf{#1}: #2}%{}
   }%
 }%
 
-\newcommand{\CTinlinecommented}[1]{%
-  \CT@inlinecommented{#1}%
+\newcommand{\CT@inlinecommentto}[3][]{%
+  \chgtrk@ifstrequal{#1}{}{%
+    \todo[inline,
+    linecolor=green,backgroundcolor=green!25,bordercolor=green]{$\rightarrow$\textbf{#2}
+      #3}%
+  }{%
+    \todo[inline,
+    linecolor=green,backgroundcolor=green!25,bordercolor=green]{\textbf{#1}:
+      $\rightarrow$\textbf{#2} #3}%
+  }%
+}%
+
+\newcommand{\CTinlinecomment}[1]{%
+  \CT@inlinecomment{#1}%
+}%
+
+\newcommand{\CTinlinecommentto}[2]{%
+  \CT@inlinecommentto{#1}{#2}%
 }%
 
 %%%%% BEGIN Declaration of options %%%%%
 % ========================
 \DeclareOption{disabled}{%
-  \renewcommand{\CT@added}[2][]{%
-    #2%
+  \renewcommand{\CT@add}[2][]{%
+    #2% Display only the added text
   }%
-  \renewcommand{\CT@deleted}[2][]{}%
-  \renewcommand{\CT@changed}[3][]{%
-    #3%
+  \renewcommand{\CT@delete}[2][]{}% Do nothing
+  \renewcommand{\CT@change}[3][]{%
+    #3% Display only the changed text
   }%
-  \renewcommand{\CT@commented}[2][]{}%
-  \renewcommand{\CT@inlinecommented}[2][]{}%
+  \renewcommand{\CT@comment}[2][]{}% Do nothing
+  \renewcommand{\CT@inlinecomment}[2][]{}% Do nothing
 }%
 
 %%%%% END Declaration of options %%%%%

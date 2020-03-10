@@ -103,7 +103,7 @@ void sample_steps(sampleFile) {
 }
 
 task clean(type: Delete) {
-  delete fileTree('.').include('**/*.aux'), fileTree('.').include('**/*.glo'), fileTree('.').include('**/*.gls'), fileTree('.').include('**/*.idx'), fileTree('.').include('**/*.ilg'), fileTree('.').include('**/*.ind'), fileTree('.').include('**/*.log'), fileTree('.').include('**/*.out'), fileTree('.').include('**/*.toc')
+  delete fileTree('.').include('**/*.aux'), fileTree('.').include('**/*.glo'), fileTree('.').include('**/*.gls'), fileTree('.').include('**/*.idx'), fileTree('.').include('**/*.ilg'), fileTree('.').include('**/*.ind'), fileTree('.').include('**/*.log'), fileTree('.').include('**/*.out'), fileTree('.').include('**/*.toc'), fileTree('.').include('**/*.synctex.gz')
 }
 
 task cleanall(type: Delete) {

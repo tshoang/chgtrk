@@ -9,21 +9,23 @@ We first create some contributors.
 % Create some abbreviation macros
 \begin{verbatim}
 \newCTcontributor[TSH]{Thai Son Hoang}
-\newCTcontributor[Bob]{Bob Smith}
+\newCTcontributor{Bob}
 \end{verbatim}
+
 \newCTcontributor[TSH]{Thai Son Hoang}
-\newCTcontributor[Bob]{Bob Smith}
 
-\TSHAdded{Here is some new added text.}
+\newCTcontributor{Bob}
 
-However this is \BobChanged{from this text}{to this text}.
+\TSHAdd{Here is some new added text.}
 
-If you just want to \TSHDeleted{delete this text}.
+However this is \BobChange{from this text}{to this text}.
+
+If you just want to \TSHDelete{delete this text}.
 
 Comment can be inline
-\TSHInlineCommented{Here is my inline comment.}
+\TSHInlineCommentTo{Bob, Colin}{Here is my inline comment.}
 
-But we can have \BobCommented{this comment} in the margin
+But we can have \BobCommentTo{Son, Colin}{this comment} in the margin
 
 \end{document}
 
